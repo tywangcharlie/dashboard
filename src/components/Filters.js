@@ -6,16 +6,39 @@ import { ageOptions, stateOptions } from './FilterOptionData';
 class Filters extends React.Component {
     
     state = {
-        yearRange: { start: 2011, end: 2015 },
+        year: { start: 2011, end: 2015 },
         states: [],
         ages: []
     };
 
-    onYearRangeChange = (e) => {
-        const { name, value } = e.target;
-        this.setState(prevState => ({
-            yearRange: { ...prevState.yearRange, [name]: Number(value) }
-        }));
+    getYearOptions = (start, end) => {
+        let options = [];
+        for (let year = start; year <= end; year++) {
+            options.push({ key: year.toString(), text: year.toString(), value: year.toString() });
+        }
+        return options;
+    };
+
+    handleStartYearChange = (e, { value }) => {
+        if (value <= this.state.year.end) {
+            this.setState(prevState => ({
+                year: {
+                  start: value,
+                  end: prevState.year.end
+                }
+            }));
+        }
+    };
+
+    handleEndYearChange = (e, { value }) => {
+        if (value >= this.state.year.start) {
+            this.setState(prevState => ({
+                year: {
+                    start: prevState.year.start,
+                    end: value 
+                }
+            }));
+        }
     };
 
     onStateChange = (e, { value }) => {
@@ -27,30 +50,31 @@ class Filters extends React.Component {
     }
 
     render() {
-        const maxYear = 2015
-        const minYear = 2011; // Example minimum year
+        const startYearOptions = this.getYearOptions(2011, this.state.year.end);
+        const endYearOptions = this.getYearOptions(this.state.year.start, 2015);
+    
         return (
             <div className="ui filters segment">
                 <div className="filter year-range">
-                    <label>Year Range: {this.state.yearRange.start} - {this.state.yearRange.end}</label>
+                    <label>Year Range</label>
                     <div>
-                        <label>Start Year: {this.state.yearRange.start}</label>
-                        <input
-                            type="range"
-                            name="start"
-                            min={minYear}
-                            max={this.state.yearRange.end} // Ensure start year cannot exceed end year
-                            value={this.state.yearRange.start}
-                            onChange={this.onYearRangeChange}
+                        <label>Start Year</label>
+                        <Dropdown
+                            placeholder='Select Start Year'
+                            fluid
+                            selection
+                            options={startYearOptions}
+                            value={this.state.year.start}
+                            onChange={this.handleStartYearChange}
                         />
-                        <label>End Year: {this.state.yearRange.end}</label>
-                        <input
-                            type="range"
-                            name="end"
-                            min={this.state.yearRange.start} // Ensure end year cannot be before start year
-                            max={maxYear}
-                            value={this.state.yearRange.end}
-                            onChange={this.onYearRangeChange}
+                        <label>End Year</label>
+                        <Dropdown
+                            placeholder='Select End Year'
+                            fluid
+                            selection
+                            options={endYearOptions}
+                            value={this.state.year.end}
+                            onChange={this.handleEndYearChange}
                         />
                     </div>
                 </div>

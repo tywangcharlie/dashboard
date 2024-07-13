@@ -1,0 +1,9 @@
+.ui.container.chart-container {
+  display: flex; /* Enables Flexbox layout */
+  justify-content: space-between; /* Optional: Adds space between the two charts */
+}
+
+.ui.container.chart-container > div {
+  flex: 1; /* Allows each chart to grow equally, filling the container */
+  max-width: 50%; /* Ensures each chart does not exceed half the container's width */
+}

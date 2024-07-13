@@ -6,12 +6,10 @@ import { ageOptions, stateOptions } from './FilterOptionData';
 class Filters extends React.Component {
     
     state = {
-        age: '',
         yearRange: { start: 2011, end: 2015 },
-        selectedStates: []
+        states: [],
+        ages: []
     };
-
-    onAgeChange = (e, { value }) => this.setState({ age: value });
 
     onYearRangeChange = (e) => {
         const { name, value } = e.target;
@@ -21,9 +19,12 @@ class Filters extends React.Component {
     };
 
     onStateChange = (e, { value }) => {
-        this.setState({ selectedStates: value });
+        this.setState({ states: value });
     }
-        
+
+    onAgeChange = (e, { value }) => {
+        this.setState({ ages: value });
+    }
 
     render() {
         const maxYear = 2015
@@ -63,21 +64,22 @@ class Filters extends React.Component {
                         selection
                         options={stateOptions}
                         onChange={this.onStateChange}
-                        value={this.state.selectedStates}
+                        value={this.state.states}
                     />
                 </div>
                 <div className="filter age-group">
                     <label>Age Group</label>
                     <Dropdown
-                        placeholder='Select Age'
+                        placeholder='Select Age Group'
                         fluid
+                        multiple
                         selection
                         options={ageOptions}
                         onChange={this.onAgeChange}
-                        value={this.state.age}
+                        value={this.state.ages}
                     />
                 </div>
-                <Button primary>Save</Button>
+                <Button primary onClick={() => this.props.onSave(this.state)}>Save</Button>
             </div>
         );
     }

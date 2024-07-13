@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import MedAPI from './apis/med-data';
+import MedAPI from './apis/MedAPI';
 import Filters from './components/Filters';
 import MedLineChart from './components/LineChart';
 import MedBarChart from './components/BarChart';

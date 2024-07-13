@@ -32,7 +32,28 @@ class App extends React.Component {
       lineChartData: lineChartData2,
       barChartData: barChartData2
     });
-};
+  };
+
+  // handleSaveSubmit = async query =>{
+  //   const payload = {
+  //     year: {
+  //       start: query.yearRange.start,
+  //       end: query.yearRange.end
+  //     },
+  //     states: query.states, 
+  //     ages: query.ages
+  //   };
+  //   console.log(query);
+  //   const response = await MedAPI.post('/report', payload)
+  //   .catch(error => {
+  //     console.log(error);
+  //   });
+  //   console.log(response.data);
+  //   this.setState({ 
+  //     lineChartData: lineChartData2,
+  //     barChartData: barChartData2
+  //   });
+  // };
 
   render() {
     return (

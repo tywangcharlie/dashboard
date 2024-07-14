@@ -5,7 +5,7 @@ import Filters from './components/Filters';
 import MedLineChart from './components/LineChart';
 import MedBarChart from './components/BarChart';
 import { stateOptions } from './components/FilterOptionData';
-import { lineChartData, lineChartData2 } from './data/lineChartData'
+import { lineChartData } from './data/lineChartData'
 import { barChartData, barChartData2 } from './data/barChartData'
 
 class App extends React.Component {

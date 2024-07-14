@@ -4,6 +4,7 @@ import MedAPI from './apis/MedAPI';
 import Filters from './components/Filters';
 import MedLineChart from './components/LineChart';
 import MedBarChart from './components/BarChart';
+import { stateOptions } from './components/FilterOptionData';
 import { lineChartData, lineChartData2 } from './data/lineChartData'
 import { barChartData, barChartData2 } from './data/barChartData'
 
@@ -15,45 +16,40 @@ class App extends React.Component {
   };
 
   handleSaveSubmit = async query =>{
-    console.log(query);
-    const response = await MedAPI.get('/search', {
-        params: {
-          yearStart: query.yearRange.start,
-          yaerEnd: query.yearRange.end,
-          states: query.states.join(","),
-          ages: query.ages.join(",")
-        }
-    })
+    const headers = {'Content-Type': 'application/json'}
+    const payload = {
+      year: {
+        start: query.year.start,
+        end: query.year.end
+      },
+      states: query.states, 
+      ages: query.ages
+    };
+    const response = await MedAPI.post('/report', {headers, payload})
     .catch(function (error){
       console.log(error);
     });
-    console.log(response.data);
+    const lineChartTransformedData = response.data.reduce((acc, item) => {
+      const year = item.year.replace(/b'|'/g, "");
+      const stateOption = stateOptions.find(option => option.value === item.state.toString());
+      const state = stateOption.text;
+      const smoke_rate = item.smoke_rate;
+      const existingStates = acc.filter(obj => obj.id === state);
+    
+      if (existingStates.length === 0) {
+        acc.push({ id: state, data: [{ x: year, y: smoke_rate }] });
+      } else {
+        existingStates[0].data.push({ x: year, y: smoke_rate });
+      }
+      return acc;
+    }, []);
+    const jsonString = JSON.stringify(lineChartTransformedData)
+    console.log(jsonString);
     this.setState({ 
-      lineChartData: lineChartData2,
-      barChartData: barChartData2
+          lineChartData: lineChartTransformedData,
+          barChartData: barChartData2
     });
   };
-
-  // handleSaveSubmit = async query =>{
-  //   const payload = {
-  //     year: {
-  //       start: query.yearRange.start,
-  //       end: query.yearRange.end
-  //     },
-  //     states: query.states, 
-  //     ages: query.ages
-  //   };
-  //   console.log(query);
-  //   const response = await MedAPI.post('/report', payload)
-  //   .catch(error => {
-  //     console.log(error);
-  //   });
-  //   console.log(response.data);
-  //   this.setState({ 
-  //     lineChartData: lineChartData2,
-  //     barChartData: barChartData2
-  //   });
-  // };
 
   render() {
     return (

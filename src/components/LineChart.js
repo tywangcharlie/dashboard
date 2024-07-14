@@ -13,7 +13,7 @@ class MedLineChart extends React.Component {
                     type: 'linear',
                     min: 'auto',
                     max: 'auto',
-                    stacked: true,
+                    stacked: false,
                     reverse: false
                 }}
                 yFormat=" >-.2f"
@@ -32,7 +32,7 @@ class MedLineChart extends React.Component {
                     tickSize: 5,
                     tickPadding: 5,
                     tickRotation: 0,
-                    legend: 'smoking rate',
+                    legend: 'smoking rate (%)',
                     legendOffset: -40,
                     legendPosition: 'middle',
                     truncateTickAt: 0

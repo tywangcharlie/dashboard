@@ -1,15 +1,22 @@
 @import 'normalize.css';
 @import './mixins.css';
 
+.ui.error {
+  padding: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
 .ui.container.chart-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
 }
 
-
 .ui.container.chart-container > *  {
-  height: 400px;
+  height: 300px;
   width: 400px;
   flex: 1 1 50%;
   max-width: 50%;
@@ -27,6 +34,6 @@
   
 }
 
-.ui.container.chart-container .header {
+.ui.container.chart-container.header {
   text-align: center;
 }

@@ -74,12 +74,15 @@ class App extends React.Component {
         )}
         <div className="ui container chart-container">
           <div className="ui container linechart-container">
+            <h3 class="ui header linechart-header">Smoking rate over years</h3>
             <MedLineChart data={this.state.lineChartData}/>
           </div>
           <div className="ui container barchart-container">
+            <h3 class="ui header barchart-header">Kidney disease rate in different states</h3>
             <MedBarChart data={this.state.barChartData}/>
           </div>
           <div className="ui container barchart-container">
+            <h3 class="ui header choropleth-header">Average Smoking rate over years in different states</h3>
             <MedChoropleth data={this.state.choroplethData}/>
           </div>
         </div>

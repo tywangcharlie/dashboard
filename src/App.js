@@ -4,14 +4,17 @@ import MedAPI from './apis/MedAPI';
 import Filters from './components/Filters';
 import MedLineChart from './components/LineChart';
 import MedBarChart from './components/BarChart';
+import MedChoropleth from './components/Choropleth';
 import { lineChartData, smokeRateDataToChartData } from './data/lineChartData'
 import { barChartData, kdRateDataToChartData } from './data/barChartData'
+import { choroplethData, smokeRateDataToChoroplethData } from './data/choroplethData'
 
 class App extends React.Component {
 
   state = {
     lineChartData: lineChartData,
     barChartData: barChartData,
+    choroplethData: choroplethData,
     isLoading: false,
     hasError: false,
     errorMessage: 'An error occurred.'
@@ -32,9 +35,11 @@ class App extends React.Component {
     .then( response => {
       const smokeRateData = response.data.smoke_rate;
       const kdRateData = response.data.kd_rate;
+      console.log(smokeRateDataToChartData(smokeRateData));
       this.setState({ 
             lineChartData: smokeRateDataToChartData(smokeRateData),
             barChartData: kdRateDataToChartData(kdRateData),
+            choroplethData: smokeRateDataToChoroplethData(smokeRateDataToChartData(smokeRateData)),
             isLoading: false,
             hasError: false
       });
@@ -73,6 +78,9 @@ class App extends React.Component {
           </div>
           <div className="ui container barchart-container">
             <MedBarChart data={this.state.barChartData}/>
+          </div>
+          <div className="ui container barchart-container">
+            <MedChoropleth data={this.state.choroplethData}/>
           </div>
         </div>
       </div>

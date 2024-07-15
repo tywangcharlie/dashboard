@@ -54,9 +54,14 @@ export const stateOptions = [
   { key: 'PR', value: '72', text: 'Puerto Rico' },
 ];
 
-export function getTextFromStateOptionKey(key) {
+export function getTextFromStateOptionValue(key) {
   const stateOption = stateOptions.find(option => option.value === key.toString());
   return stateOption.text
+}
+
+export function getKeyFromStateOptionText(text) {
+  const stateOption = stateOptions.find(option => option.text === text.toString());
+  return stateOption.key
 }
 
 export const ageOptions = [

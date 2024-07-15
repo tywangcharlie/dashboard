@@ -12,10 +12,12 @@ class App extends React.Component {
 
   state = {
     lineChartData: lineChartData,
-    barChartData: barChartData
+    barChartData: barChartData,
+    isLoading: false
   };
 
   handleSaveSubmit = async query =>{
+    this.setState({isLoading: true})
     const headers = {'Content-Type': 'application/json'}
     const payload = {
       year: {
@@ -43,18 +45,17 @@ class App extends React.Component {
       }
       return acc;
     }, []);
-    const jsonString = JSON.stringify(lineChartTransformedData)
-    console.log(jsonString);
     this.setState({ 
           lineChartData: lineChartTransformedData,
-          barChartData: barChartData2
+          barChartData: barChartData2,
+          isLoading: false
     });
   };
 
   render() {
     return (
       <div className="App">
-        <Filters onSave={this.handleSaveSubmit}/>
+        <Filters onSave={this.handleSaveSubmit} isLoading={this.state.isLoading}/>
         <div className="ui container chart-container">
           <div style={{ height: "400px" }}>
             <MedLineChart data={this.state.lineChartData}/>

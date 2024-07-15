@@ -52,6 +52,7 @@ class Filters extends React.Component {
     render() {
         const startYearOptions = this.getYearOptions(2011, this.state.year.end);
         const endYearOptions = this.getYearOptions(this.state.year.start, 2015);
+        const isSaveDisabled = !this.state.year || this.state.states.length === 0 || this.state.ages.length === 0;
     
         return (
             <div className="ui filters segment">
@@ -103,7 +104,7 @@ class Filters extends React.Component {
                         value={this.state.ages}
                     />
                 </div>
-                <Button primary onClick={() => this.props.onSave(this.state)}>Save</Button>
+                <Button primary onClick={() => this.props.onSave(this.state)} disabled={isSaveDisabled} loading={this.props.isLoading} >Save</Button>
             </div>
         );
     }

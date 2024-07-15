@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import './style/App.css';
 import MedAPI from './apis/MedAPI';
 import Filters from './components/Filters';
 import MedLineChart from './components/LineChart';
@@ -68,10 +68,10 @@ class App extends React.Component {
         </div>
         )}
         <div className="ui container chart-container">
-          <div style={{ height: "400px" }}>
+          <div className="ui container linechart-container">
             <MedLineChart data={this.state.lineChartData}/>
           </div>
-          <div style={{ height: "400px" }}>
+          <div className="ui container barchart-container">
             <MedBarChart data={this.state.barChartData}/>
           </div>
         </div>

@@ -1,0 +1,44 @@
+# get line chart, smoking rate _RFSMOK3
+SELECT _STATE as id, IYEAR as x, sum(case when _RFSMOK3 = 2 then 1 else 0 end) * 100 / count(*) as y
+FROM `med-umich.brfs.smoke_kd_view`
+WHERE 
+_STATE in (4,6,8)
+and IYEAR in ("b'2011'")
+and _AGE_G in (3,5)
+group by _STATE, IYEAR
+order by _STATE, IYEAR desc
+LIMIT 10
+
+# kidney disease rate CHCKIDNY
+-- 1 Yes 
+-- 2 No 
+-- 7 Don’t know / Not sure 
+-- 9 Refused
+select a.state, a.edu_level,  a.kd_count, b.base_count, a.kd_count * 100 /b.base_count as kd_rate 
+from 
+(SELECT _STATE as state, _EDUCAG as edu_level, sum(case when CHCKIDNY = 1 then 1 else 0 end) as kd_count
+FROM `med-umich.brfs.smoke_kd_view`
+WHERE 
+_STATE in (1,2,3,4,5,6,8)
+and IYEAR in ("b'2011'")
+and _AGE_G in (3,5)
+group by _STATE, _EDUCAG) as a
+join 
+(SELECT _STATE as state, count(*) as base_count
+FROM `med-umich.brfs.smoke_kd_view`
+WHERE 
+_STATE in (1,2,3,4,5,6,8)
+and IYEAR in ("b'2011'")
+and _AGE_G in (3,5)
+group by _STATE) as b on a.state = b.state
+order by a.state, a.edu_level
+
+SELECT _STATE as x, _EDUCAG as component, sum(case when CHCKIDNY = 1 then 1 else 0 end) * 100 / count(*) as y
+FROM `med-umich.brfs.report_*`
+WHERE 
+_STATE in (1,2,3,4,5,6,8)
+and IYEAR in ("b'2011'")
+and _AGE_G in (3,5)
+group by _STATE, _EDUCAG
+order by _STATE, _EDUCAG asc
+LIMIT 10

@@ -1,6 +1,6 @@
 export const barChartData = [
     {
-      "country": "AD",
+      "state": "AD",
       "hot dog": 109,
       "burger": 179,
       "sandwich": 112,
@@ -9,7 +9,7 @@ export const barChartData = [
       "donut": 138,
     },
     {
-      "country": "AE",
+      "state": "AE",
       "hot dog": 31,
       "burger": 195,
       "sandwich": 124,
@@ -18,7 +18,7 @@ export const barChartData = [
       "donut": 109,
     },
     {
-      "country": "AF",
+      "state": "AF",
       "hot dog": 6,
       "burger": 181,
       "sandwich": 29,
@@ -27,7 +27,7 @@ export const barChartData = [
       "donut": 86,
     },
     {
-      "country": "AG",
+      "state": "AG",
       "hot dog": 157,
       "burger": 147,
       "sandwich": 149,
@@ -36,7 +36,7 @@ export const barChartData = [
       "donut": 146,
     },
     {
-      "country": "AI",
+      "state": "AI",
       "hot dog": 134,
       "burger": 51,
       "sandwich": 158,
@@ -45,7 +45,7 @@ export const barChartData = [
       "donut": 143,
     },
     {
-      "country": "AL",
+      "state": "AL",
       "hot dog": 41,
       "burger": 74,
       "sandwich": 1,
@@ -54,7 +54,7 @@ export const barChartData = [
       "donut": 26,
     },
     {
-      "country": "AM",
+      "state": "AM",
       "hot dog": 98,
       "burger": 165,
       "sandwich": 61,
@@ -67,7 +67,7 @@ export const barChartData = [
 
   export const barChartData2 = [
     {
-      "country": "AD",
+      "state": "AD",
       "hot dog": 109,
       "hot dogColor": "hsl(330, 70%, 50%)",
       "burger": 179,
@@ -82,7 +82,7 @@ export const barChartData = [
       "donutColor": "hsl(307, 70%, 50%)"
     },
     {
-      "country": "AE",
+      "state": "AE",
       "hot dog": 31,
       "hot dogColor": "hsl(28, 70%, 50%)",
       "burger": 195,
@@ -97,7 +97,7 @@ export const barChartData = [
       "donutColor": "hsl(140, 70%, 50%)"
     },
     {
-      "country": "AF",
+      "state": "AF",
       "hot dog": 6,
       "hot dogColor": "hsl(70, 70%, 50%)",
       "burger": 181,
@@ -112,7 +112,7 @@ export const barChartData = [
       "donutColor": "hsl(245, 70%, 50%)"
     },
     {
-      "country": "AG",
+      "state": "AG",
       "hot dog": 157,
       "hot dogColor": "hsl(42, 70%, 50%)",
       "burger": 147,
@@ -127,7 +127,7 @@ export const barChartData = [
       "donutColor": "hsl(106, 70%, 50%)"
     },
     {
-      "country": "AI",
+      "state": "AI",
       "hot dog": 134,
       "hot dogColor": "hsl(99, 70%, 50%)",
       "burger": 51,

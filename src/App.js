@@ -31,7 +31,9 @@ class App extends React.Component {
     .catch(function (error){
       console.log(error);
     });
-    const lineChartTransformedData = response.data.reduce((acc, item) => {
+    console.log(response.data)
+    const smokeRateData = response.data.smoke_rate;
+    const lineChartTransformedData = smokeRateData.reduce((acc, item) => {
       const year = item.year.replace(/b'|'/g, "");
       const stateOption = stateOptions.find(option => option.value === item.state.toString());
       const state = stateOption.text;
@@ -45,6 +47,7 @@ class App extends React.Component {
       }
       return acc;
     }, []);
+    console.log(lineChartTransformedData)
     this.setState({ 
           lineChartData: lineChartTransformedData,
           barChartData: barChartData2,

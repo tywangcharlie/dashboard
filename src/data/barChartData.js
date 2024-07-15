@@ -1,10 +1,10 @@
-import { getTextFromStateOptionValue, getTextFromEduOptionKey } from '../components/FilterOptionData';
+import { getTextFromStateOptionValue, getKeyFromStateOptionText, getTextFromEduOptionKey } from '../components/FilterOptionData';
 
 export function kdRateDataToChartData(data) {
   const groupedByState = {};
   // Group data by state
   data.forEach(({edu_level, kd_rate, state}) => {
-    state = getTextFromStateOptionValue(state);
+    state = getKeyFromStateOptionText(getTextFromStateOptionValue(state));
     if (!groupedByState[state]) {
         groupedByState[state] = {};
     }

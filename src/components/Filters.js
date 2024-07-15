@@ -1,5 +1,5 @@
 import React from 'react';
-import './Filters.css';
+import '../style/Filters.css';
 import { Button, Dropdown } from 'semantic-ui-react';
 import { ageOptions, stateOptions } from './FilterOptionData';
 

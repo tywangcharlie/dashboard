@@ -54,6 +54,11 @@ export const stateOptions = [
   { key: 'PR', value: '72', text: 'Puerto Rico' },
 ];
 
+export function getTextFromStateOptionKey(key) {
+  const stateOption = stateOptions.find(option => option.value === key.toString());
+  return stateOption.text
+}
+
 export const ageOptions = [
     //_AGE_G
   { key: '1', text: '18-24', value: '1' },
@@ -63,3 +68,22 @@ export const ageOptions = [
   { key: '5', text: '55-64', value: '5' },
   { key: '6', text: '65 or older', value: '6' },
 ];
+
+export function getTextFromAgeOptionKey(key) {
+  const ageOption = ageOptions.find(option => option.value === key.toString());
+  return ageOption.text
+}
+
+export const eduOptions = [
+  //_EDUCAG
+  { key: '1', text: 'Did not graduate High School', value: '1' },
+  { key: '2', text: 'Graduated High School', value: '2' },
+  { key: '3', text: 'Attended College or Technical School', value: '3' },
+  { key: '4', text: 'Graduated from College or Technical School', value: '4' },
+  { key: '9', text: 'Don’t know/Not sure/Missing', value: '9' },
+];
+
+export function getTextFromEduOptionKey(key) {
+  const eduOption = eduOptions.find(option => option.value === key.toString());
+  return eduOption.text
+}

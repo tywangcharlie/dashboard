@@ -1,3 +1,22 @@
+import { getTextFromStateOptionKey } from '../components/FilterOptionData';
+
+export function smokeRateDataToChartData(data) {
+    const lineChartTransformedData = data.reduce((acc, item) => {
+      const year = item.year.replace(/b'|'/g, "");
+      const state = getTextFromStateOptionKey(item.state);
+      const smoke_rate = item.smoke_rate;
+      const existingStates = acc.filter(obj => obj.id === state);
+    
+      if (existingStates.length === 0) {
+        acc.push({ id: state, data: [{ x: year, y: smoke_rate }] });
+      } else {
+        existingStates[0].data.push({ x: year, y: smoke_rate });
+      }
+      return acc;
+    }, []);
+    return lineChartTransformedData;
+}
+
 export const lineChartData = [
     {
       "id": "TX",

@@ -1,69 +1,60 @@
-export const barChartData = [
-    {
-      "state": "AD",
-      "hot dog": 109,
-      "burger": 179,
-      "sandwich": 112,
-      "kebab": 48,
-      "fries": 70,
-      "donut": 138,
-    },
-    {
-      "state": "AE",
-      "hot dog": 31,
-      "burger": 195,
-      "sandwich": 124,
-      "kebab": 134,
-      "fries": 110,
-      "donut": 109,
-    },
-    {
-      "state": "AF",
-      "hot dog": 6,
-      "burger": 181,
-      "sandwich": 29,
-      "kebab": 182,
-      "fries": 162,
-      "donut": 86,
-    },
-    {
-      "state": "AG",
-      "hot dog": 157,
-      "burger": 147,
-      "sandwich": 149,
-      "kebab": 13,
-      "fries": 49,
-      "donut": 146,
-    },
-    {
-      "state": "AI",
-      "hot dog": 134,
-      "burger": 51,
-      "sandwich": 158,
-      "kebab": 35,
-      "fries": 78,
-      "donut": 143,
-    },
-    {
-      "state": "AL",
-      "hot dog": 41,
-      "burger": 74,
-      "sandwich": 1,
-      "kebab": 125,
-      "fries": 146,
-      "donut": 26,
-    },
-    {
-      "state": "AM",
-      "hot dog": 98,
-      "burger": 165,
-      "sandwich": 61,
-      "kebab": 44,
-      "fries": 65,
-      "donut": 146,
-    }
-  ]
+import { getTextFromStateOptionKey, getTextFromEduOptionKey } from '../components/FilterOptionData';
 
+export function kdRateDataToChartData(data) {
+  const groupedByState = {};
+  // Group data by state
+  data.forEach(({edu_level, kd_rate, state}) => {
+    state = getTextFromStateOptionKey(state);
+    if (!groupedByState[state]) {
+        groupedByState[state] = {};
+    }
+    groupedByState[state][getTextFromEduOptionKey(edu_level)] = parseFloat(kd_rate.toFixed(2));
+  });
+  // Transform each group into the desired format
+  const resultArray = Object.keys(groupedByState).map(state => {
+      const eduLevels = groupedByState[state];
+      return {
+          state,
+          ...eduLevels
+      };
+  });
+  return resultArray;
+} 
+
+export const barChartData = [
+  {
+      "state": "6",
+      "Did not graduate High School": 0.44,
+      "Graduated High School": 0.66,
+      "Attended College or Technical School": 0.94,
+      "Graduated from College or Technical School": 1.16,
+      "Don’t know/Not sure/Missing": 0.04
+  },
+  {
+      "state": "26",
+      "Did not graduate High School": 0.33,
+      "Graduated High School": 1.42,
+      "Attended College or Technical School": 1.17,
+      "Graduated from College or Technical School": 1.19,
+      "Don’t know/Not sure/Missing": 0.02
+  },
+  {
+      "state": "36",
+      "Did not graduate High School": 0.4,
+      "Graduated High School": 0.7,
+      "Attended College or Technical School": 0.65,
+      "Graduated from College or Technical School": 0.85,
+      "Don’t know/Not sure/Missing": 0.02
+  },
+  {
+      "state": "48",
+      "Did not graduate High School": 0.7,
+      "Graduated High School": 1.02,
+      "Attended College or Technical School": 1.05,
+      "Graduated from College or Technical School": 1.1,
+      "Don’t know/Not sure/Missing": 0.02
+  }
+]
 
   export const barChartData2 = [
     {

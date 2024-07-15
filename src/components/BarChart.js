@@ -8,15 +8,14 @@ class MedBarChart extends React.Component {
             <ResponsiveBar
                 data={data}
                 keys={[
-                    'hot dog',
-                    'burger',
-                    'sandwich',
-                    'kebab',
-                    'fries',
-                    'donut'
+                    'Did not graduate High School',
+                    'Graduated High School',
+                    'Attended College or Technical School',
+                    'Graduated from College or Technical School',
+                    'Don’t know/Not sure/Missing'
                 ]}
                 indexBy="state"
-                margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
+                margin={{ top: 50, right: 230, bottom: 50, left: 60 }}
                 padding={0.3}
                 valueScale={{ type: 'linear' }}
                 indexScale={{ type: 'band', round: true }}
@@ -70,7 +69,7 @@ class MedBarChart extends React.Component {
                     tickSize: 5,
                     tickPadding: 5,
                     tickRotation: 0,
-                    legend: 'country',
+                    legend: 'state',
                     legendPosition: 'middle',
                     legendOffset: 32,
                     truncateTickAt: 0
@@ -79,7 +78,7 @@ class MedBarChart extends React.Component {
                     tickSize: 5,
                     tickPadding: 5,
                     tickRotation: 0,
-                    legend: 'food',
+                    legend: 'Kidney Disease Rate (%)',
                     legendPosition: 'middle',
                     legendOffset: -40,
                     truncateTickAt: 0
@@ -101,10 +100,10 @@ class MedBarChart extends React.Component {
                         anchor: 'bottom-right',
                         direction: 'column',
                         justify: false,
-                        translateX: 120,
+                        translateX: 220,
                         translateY: 0,
                         itemsSpacing: 2,
-                        itemWidth: 100,
+                        itemWidth: 200,
                         itemHeight: 20,
                         itemDirection: 'left-to-right',
                         itemOpacity: 0.85,
@@ -121,7 +120,7 @@ class MedBarChart extends React.Component {
                 ]}
                 role="application"
                 ariaLabel="Nivo bar chart demo"
-                barAriaLabel={e=>e.id+": "+e.formattedValue+" in country: "+e.indexValue}
+                barAriaLabel={e=>e.id+": "+e.formattedValue+" in state: "+e.indexValue}
             />
         );
     }

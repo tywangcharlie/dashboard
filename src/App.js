@@ -4,16 +4,17 @@ import MedAPI from './apis/MedAPI';
 import Filters from './components/Filters';
 import MedLineChart from './components/LineChart';
 import MedBarChart from './components/BarChart';
-import { stateOptions } from './components/FilterOptionData';
-import { lineChartData } from './data/lineChartData'
-import { barChartData, barChartData2 } from './data/barChartData'
+import { lineChartData, smokeRateDataToChartData } from './data/lineChartData'
+import { barChartData, kdRateDataToChartData } from './data/barChartData'
 
 class App extends React.Component {
 
   state = {
     lineChartData: lineChartData,
     barChartData: barChartData,
-    isLoading: false
+    isLoading: false,
+    hasError: false,
+    errorMessage: 'An error occurred.'
   };
 
   handleSaveSubmit = async query =>{
@@ -27,38 +28,45 @@ class App extends React.Component {
       states: query.states, 
       ages: query.ages
     };
-    const response = await MedAPI.post('/report', {headers, payload})
+    await MedAPI.post('/report', {headers, payload, timeout: 5000})
+    .then( response => {
+      const smokeRateData = response.data.smoke_rate;
+      const kdRateData = response.data.kd_rate;
+      this.setState({ 
+            lineChartData: smokeRateDataToChartData(smokeRateData),
+            barChartData: kdRateDataToChartData(kdRateData),
+            isLoading: false,
+            hasError: false
+      });
+    })
     .catch(function (error){
-      console.log(error);
-    });
-    console.log(response.data)
-    const smokeRateData = response.data.smoke_rate;
-    const lineChartTransformedData = smokeRateData.reduce((acc, item) => {
-      const year = item.year.replace(/b'|'/g, "");
-      const stateOption = stateOptions.find(option => option.value === item.state.toString());
-      const state = stateOption.text;
-      const smoke_rate = item.smoke_rate;
-      const existingStates = acc.filter(obj => obj.id === state);
-    
-      if (existingStates.length === 0) {
-        acc.push({ id: state, data: [{ x: year, y: smoke_rate }] });
+      this.setState({ isLoading: false });
+      if (error.code === 'ECONNABORTED' || error.message.includes('timeout')) {
+        console.log('The request timed out.');
+        this.setState({ hasError: true, errorMessage: 'The request timed out.' });
       } else {
-        existingStates[0].data.push({ x: year, y: smoke_rate });
+        console.log(error);
+        this.setState({ hasError: true, errorMessage: 'An error occurred.' });
       }
-      return acc;
-    }, []);
-    console.log(lineChartTransformedData)
-    this.setState({ 
-          lineChartData: lineChartTransformedData,
-          barChartData: barChartData2,
-          isLoading: false
     });
+    
   };
+
+  closeErrorMessage = () => {
+    this.setState({ hasError: false });
+  };
+
 
   render() {
     return (
       <div className="App">
         <Filters onSave={this.handleSaveSubmit} isLoading={this.state.isLoading}/>
+        {this.state.hasError && (
+        <div className="ui error message">
+          <i className="close icon" onClick={this.closeErrorMessage}></i>
+          <div className="header">An error occurred. Please try again.</div>
+        </div>
+        )}
         <div className="ui container chart-container">
           <div style={{ height: "400px" }}>
             <MedLineChart data={this.state.lineChartData}/>

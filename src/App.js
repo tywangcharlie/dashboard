@@ -64,7 +64,7 @@ class App extends React.Component {
         {this.state.hasError && (
         <div className="ui error message">
           <i className="close icon" onClick={this.closeErrorMessage}></i>
-          <div className="header">An error occurred. Please try again.</div>
+          <div className="header">{this.state.errorMessage}</div>
         </div>
         )}
         <div className="ui container chart-container">

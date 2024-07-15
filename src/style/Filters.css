@@ -1,12 +1,23 @@
 .filters {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
+    align-items: flex-end;
     justify-content: space-between;
     padding: 10px;
+    position: relative;
 }
 
 .filters > * {
     flex: 1;
     margin: 0 10px;
+}
+
+.filters label {
+    font-weight: bold;
+}
+
+.button {
+    margin-top: auto;
+    align-self: flex-end;
+    order: 2;
 }
